@@ -22,7 +22,7 @@ try:
     driver.get("http://localhost:3000/")
     time.sleep(2)
 
-    driver.find_element(By.ID, "mascota").send_keys("")
+    driver.find_element(By.ID, "mascota").send_keys(" ")
     time.sleep(2)
 
     driver.find_element(By.ID, "propietario").send_keys("Juan Perez")
