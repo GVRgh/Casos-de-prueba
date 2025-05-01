@@ -1,4 +1,8 @@
 #Caso de prueba 4 - Crear cita con nombre de mascota vacío
+#En este caso se automitiza el ingreso de los campos mascota con un espacio en blanco,propietario
+#email, fecha de cita formato AAAA-MM-DD igual o mayor al dia de hoy
+#y el campo observaciones
+#se crearon excepciones para errores inesperados en ejecucion de la prueba.
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service

@@ -1,4 +1,8 @@
-#Caso de prueba 5 - Crear cita con email invalido
+#Caso de prueba 5 - Crear cita con formato de email Invalido
+#En este caso se automitiza el ingreso de los campos mascota,propietario
+#email sin el @ para validar el formato del valor ingresado, fecha de cita formato AAAA-MM-DD igual o mayor al dia de hoy
+#y el campo observaciones
+#se crearon excepciones para errores inesperados en ejecucion de la prueba.
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -34,7 +38,7 @@ try:
     driver.find_element(By.ID, "cita").send_keys("2025" + Keys.ARROW_RIGHT + "05-30")
     time.sleep(2)
 
-    driver.find_element(By.ID, "observaciones").send_keys("colitis de 4 dias de evolucion")
+    driver.find_element(By.ID, "observaciones").send_keys("colitis de 4 dias de evolución")
     time.sleep(2)
 
     driver.find_element(By.ID, "agregar").click()

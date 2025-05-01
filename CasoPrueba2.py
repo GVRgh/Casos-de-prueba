@@ -1,4 +1,8 @@
-#Caso de prueba 2 - Crear cita con fecha menor a la de hoy
+#Caso de prueba 2 - Crear cita con fecha inferior al dia de hoy
+#En este caso se automitiza el ingreso de los campos mascota,propietario
+#email, fecha de cita formato AAAA-MM-DD menor al dia de hoy
+#y el campo observaciones
+#se crearon excepciones para errores inesperados en ejecucion de la prueba.
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
