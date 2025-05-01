@@ -13,7 +13,7 @@ export const Formulario = ({
   const [propietario, setPropietario] = useState("");
   const [email, setEmail] = useState("");
   const [fecha, setFecha] = useState("");
-  const [sintomas, setSintomas] = useState("");
+  const [observaciones, setObservaciones] = useState("");
 
   const [error, setError] = useState(false);
 
@@ -23,7 +23,7 @@ export const Formulario = ({
       setPropietario(paciente.propietario);
       setEmail(paciente.email);
       setFecha(paciente.fecha);
-      setSintomas(paciente.sintomas);
+      setObservaciones(paciente.observaciones);
     }
   }, [paciente]);
 
@@ -72,7 +72,7 @@ export const Formulario = ({
         return;
       }
       
-      if (sintomas.trim() === "") {
+      if (observaciones.trim() === "") {
         alert("El campo síntomas está vacío");
         console.log("El campo síntomas está vacío");
         setError(true);
@@ -87,7 +87,7 @@ export const Formulario = ({
       propietario,
       email,
       fecha,
-      sintomas,
+      observaciones,
     };
 
     if (paciente.id) {
@@ -108,7 +108,7 @@ export const Formulario = ({
     setPropietario("");
     setEmail("");
     setFecha("");
-    setSintomas("");
+    setObservaciones("");
   };
 
   return (
@@ -194,17 +194,17 @@ export const Formulario = ({
 
         <div className="mb-5">
           <label
-            htmlFor="sintomas"
+            htmlFor="observaciones"
             className="block text-gray-700 uppercase font-bold"
           >
-            Síntomas
+            Observaciones
           </label>
           <textarea
-            id="sintomas"
+            id="observaciones"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-            placeholder="Describe los síntomas"
-            value={sintomas}
-            onChange={(e) => setSintomas(e.target.value)}
+            placeholder="Describe las Observaciones"
+            value={observaciones}
+            onChange={(e) => setObservaciones(e.target.value)}
           />
         </div>
 

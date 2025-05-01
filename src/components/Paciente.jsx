@@ -1,5 +1,5 @@
 export const Paciente = ({ paciente, setPaciente, eliminarPaciente }) => {
-  const { nombre, propietario, email, fecha, sintomas, id } = paciente;
+  const { nombre, propietario, email, fecha, observaciones, id } = paciente;
   const handleEliminar = () => {
     const respuesta = confirm("Deseas eliminar este paciente?");
     if (respuesta) {
@@ -24,13 +24,13 @@ export const Paciente = ({ paciente, setPaciente, eliminarPaciente }) => {
       </p>
 
       <p className="font-bold mb-3 text-gray-700 uppercase">
-        Fecha Alta: {""}
+        Fevha de Cita: {""}
         <span className="font-normal normal-case">{fecha}</span>
       </p>
 
       <p className="font-bold mb-3 text-gray-700 uppercase">
-        Síntomas: {""}
-        <span className="font-normal normal-case">{sintomas}</span>
+      observaciones: {""}
+        <span className="font-normal normal-case">{observaciones}</span>
       </p>
           <div className="flex justify-between mt-10">
         <button
