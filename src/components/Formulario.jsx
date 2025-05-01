@@ -71,6 +71,18 @@ export const Formulario = ({
         setError(true);
         return;
       }
+
+      // Validar que la fecha no sea menor a hoy
+      const fechaIngresada = new Date(fecha);
+      const hoy = new Date();
+      hoy.setHours(0, 0, 0, 0); // Eliminar la hora para comparación exacta
+
+      if (fechaIngresada < hoy) {
+      alert("La fecha no puede ser menor a la fecha actual");
+      console.log("La fecha ingresada es menor que hoy");
+      setError(true);
+      return;
+      }
       
       if (observaciones.trim() === "") {
         alert("El campo síntomas está vacío");
