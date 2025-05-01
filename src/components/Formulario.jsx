@@ -64,6 +64,16 @@ export const Formulario = ({
         setError(true);
         return;
       }
+
+      // Expresión regular para validar formato de email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(email)) {
+      alert("El email ingresado no es válido");
+      console.log("El email ingresado no es válido");
+      setError(true);
+      return;
+      }
       
       if (fecha.trim() === "") {
         alert("El campo fecha está vacío");
@@ -180,7 +190,7 @@ export const Formulario = ({
           </label>
           <input
             id="email"
-            type="email"
+            type="text"
             placeholder="Email Contacto Propietario"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
             value={email}
