@@ -38,14 +38,49 @@ export const Formulario = ({
     e.preventDefault();
 
     // Validación del formulario
-    if ([nombre, propietario, email, fecha, sintomas].includes("")) {
+   /* if ([nombre, propietario, email, fecha, sintomas].includes("")) {
       console.log("Hay al menos un campo vacío");
       setError(true);
       return;
-    }
+    }*/
+
+      if (nombre.trim() === "") {
+        alert("El campo nombre está vacío");
+        console.log("El campo nombre está vacío");
+        setError(true);
+        return;
+      }
+      
+      if (propietario.trim() === "") {
+        alert("El campo propietario está vacío");
+        console.log("El campo propietario está vacío");
+        setError(true);
+        return;
+      }
+      
+      if (email.trim() === "") {
+        alert("El campo email está vacío");
+        console.log("El campo email está vacío");
+        setError(true);
+        return;
+      }
+      
+      if (fecha.trim() === "") {
+        alert("El campo fecha está vacío");
+        console.log("El campo fecha está vacío");
+        setError(true);
+        return;
+      }
+      
+      if (sintomas.trim() === "") {
+        alert("El campo síntomas está vacío");
+        console.log("El campo síntomas está vacío");
+        setError(true);
+        return;
+      }
 
     setError(false);
-
+    alert("Ingreso de Paciente Exitoso");
     // Objeto de paciente
     const objetoPaciente = {
       nombre,
@@ -89,7 +124,7 @@ export const Formulario = ({
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded-lg py-10 px-5"
       >
-        {error && <Error>Todos los campos son obligatorios </Error>}
+       
         <div className="mb-5">
           <label
             htmlFor="mascota"
