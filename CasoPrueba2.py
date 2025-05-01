@@ -1,4 +1,4 @@
-#Caso de Prueba 1 - Crear cita con datos válidos
+#Caso de prueba 2 - Crear cita con fecha menor a la de hoy
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -31,7 +31,7 @@ try:
     driver.find_element(By.ID, "email").send_keys("juanperez@gmail.com")
     time.sleep(2)
 
-    driver.find_element(By.ID, "cita").send_keys("2025" + Keys.ARROW_RIGHT + "05-02")
+    driver.find_element(By.ID, "cita").send_keys("2025" + Keys.ARROW_RIGHT + "04-02")
     time.sleep(2)
 
     driver.find_element(By.ID, "observaciones").send_keys("colitis de 4 dias de evolucion")
@@ -49,7 +49,7 @@ try:
     # Mostrar mensaje visual
     script = """
     var mensaje = document.createElement('div');
-    mensaje.innerText = 'Caso de prueba Uno Ejecutado con Éxito';
+    mensaje.innerText = 'Caso de prueba Dos Ejecutado con Éxito';
     mensaje.style.position = 'fixed';
     mensaje.style.bottom = '20px';
     mensaje.style.right = '20px';
