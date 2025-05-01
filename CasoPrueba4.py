@@ -1,4 +1,4 @@
-#Caso de prueba 3 - Crear cita sin seleccionar propietario
+#Caso de prueba 4 - Crear cita con nombre de mascota vacío
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -22,9 +22,12 @@ try:
     driver.get("http://localhost:3000/")
     time.sleep(2)
 
-    driver.find_element(By.ID, "mascota").send_keys("macarena")
+    driver.find_element(By.ID, "mascota").send_keys("")
     time.sleep(2)
-    
+
+    driver.find_element(By.ID, "propietario").send_keys("Juan Perez")
+    time.sleep(2)
+
     driver.find_element(By.ID, "email").send_keys("juanperez@gmail.com")
     time.sleep(2)
 
@@ -46,7 +49,7 @@ try:
     # Mostrar mensaje visual
     script = """
     var mensaje = document.createElement('div');
-    mensaje.innerText = 'Caso de prueba Tres Ejecutado con Éxito';
+    mensaje.innerText = 'Caso de prueba Cuatro Ejecutado con Éxito';
     mensaje.style.position = 'fixed';
     mensaje.style.bottom = '20px';
     mensaje.style.right = '20px';
