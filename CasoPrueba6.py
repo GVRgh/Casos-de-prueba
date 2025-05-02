@@ -1,8 +1,7 @@
-#Caso de Prueba 1 - Crear cita con datos válidos
-#En este caso se automitiza el ingreso de los campos mascota,propietario
-#email, fecha de cita formato AAAA-MM-DD igual o mayor al dia de hoy
-#y el campo observaciones
-#se crearon excepciones para errores inesperados en ejecucion de la prueba.
+#Caso de Prueba 6 - Editar el nombre de la mascota
+#En este caso de prueba se automatiza el ingreso un paciente con valores válidos a la lista,
+#fecha de cita formato AAAA-MM-DD igual o mayor al dia de hoy
+#y posteriormente se edita el campo de nombre de mascota
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -12,48 +11,79 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, UnexpectedAlertPresentException
 
-# Crear opciones del navegador
-options = Options()
-options.add_argument("--start-maximized")
 
-# Configurar el driver
+# Configurar opciones del navegador
+options = Options()
+options.add_argument("--start-maximized")  # Esto maximiza la ventana
+
+
+# Configurar el driver con Service y pasar las opciones
 driver = webdriver.Chrome(
     service=Service(ChromeDriverManager().install()),
     options=options
 )
 
 try:
+    # Abrir una url host:3000
     driver.get("http://localhost:3000/")
     time.sleep(2)
-
+    
+    #Ingresa nombre de mascota
     driver.find_element(By.ID, "mascota").send_keys("macarena")
     time.sleep(2)
-
+    
+    #Ingresa nombre de propietario
     driver.find_element(By.ID, "propietario").send_keys("Juan Perez")
     time.sleep(2)
-
+    
+    #Ingresa e-mail del propietario
     driver.find_element(By.ID, "email").send_keys("juanperez@gmail.com")
     time.sleep(2)
 
-    driver.find_element(By.ID, "cita").send_keys("2025" + Keys.ARROW_RIGHT + "10-02")
+    #Ingresa fecha de la cita    
+    driver.find_element(By.ID, "cita").send_keys("2025"+ Keys.ARROW_RIGHT+"10-02")
     time.sleep(2)
-
-    driver.find_element(By.ID, "observaciones").send_keys("colitis de 4 dias de evolucion")
+    
+    #Ingresa observaciones del paciente
+    driver.find_element(By.ID, "observaciones").send_keys("Molestia pata derecha trasera")
     time.sleep(2)
-
+    
+    #Click al boton de agregar
     driver.find_element(By.ID, "agregar").click()
     time.sleep(3)
-
+    
     # Manejar alerta
     try:
         driver.switch_to.alert.accept()
     except UnexpectedAlertPresentException:
         print("⚠️ Alerta inesperada presente.")
+    
+    time.sleep(5)
 
+    #Click boton editar
+    driver.find_element(By.ID, "editar").click()
+    time.sleep(2)
+    
+    #Modifica el campo de nombre de mascota
+    driver.find_element(By.ID, "mascota").clear()
+    time.sleep(2)
+    driver.find_element(By.ID, "mascota").send_keys("Luna")
+    time.sleep(2)
+    
+    #Agrega al paciente con nuevo nombre de mascota
+    btn_agregar = driver.find_element(By.ID, "agregar").click()
+    time.sleep(3)
+    
+    # Manejar alerta
+    try:
+        driver.switch_to.alert.accept()
+    except UnexpectedAlertPresentException:
+        print("⚠️ Alerta inesperada presente.")
+    
     # Mostrar mensaje visual
     script = """
     var mensaje = document.createElement('div');
-    mensaje.innerText = 'Caso de prueba Uno Ejecutado con Éxito';
+    mensaje.innerText = 'Caso de prueba seis Ejecutado con Éxito';
     mensaje.style.position = 'fixed';
     mensaje.style.bottom = '20px';
     mensaje.style.right = '20px';
@@ -66,7 +96,7 @@ try:
     document.body.appendChild(mensaje);
     """
     driver.execute_script(script)
-
+    
 except NoSuchElementException as e:
     print(f"❌ Elemento no encontrado: {e}")
 except TimeoutException as e:

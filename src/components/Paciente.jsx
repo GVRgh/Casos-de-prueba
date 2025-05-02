@@ -24,7 +24,7 @@ export const Paciente = ({ paciente, setPaciente, eliminarPaciente }) => {
       </p>
 
       <p className="font-bold mb-3 text-gray-700 uppercase">
-        Fevha de Cita: {""}
+              Fecha de Cita: {""}
         <span className="font-normal normal-case">{fecha}</span>
       </p>
 
