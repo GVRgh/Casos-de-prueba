@@ -1,5 +1,5 @@
 #Caso de Prueba 1 - Crear cita con datos válidos
-#En este caso se automitiza el ingreso de los campos mascota,propietario
+#En este caso se automatiza el ingreso de los campos mascota,propietario
 #email, fecha de cita formato AAAA-MM-DD igual o mayor al dia de hoy
 #y el campo observaciones
 #se crearon excepciones para errores inesperados en ejecucion de la prueba.
