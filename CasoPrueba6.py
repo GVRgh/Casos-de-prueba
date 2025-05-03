@@ -41,7 +41,7 @@ try:
     time.sleep(2)
 
     #Ingresa fecha de la cita    
-    driver.find_element(By.ID, "cita").send_keys("2025"+ Keys.ARROW_RIGHT+"10-02")
+    driver.find_element(By.ID, "cita").send_keys("2025"+ Keys.ARROW_RIGHT+"10-07")
     time.sleep(2)
     
     #Ingresa observaciones del paciente
