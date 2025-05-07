@@ -36,7 +36,7 @@ export const Paciente = ({ paciente, setPaciente, eliminarPaciente }) => {
         <button
           id="editar"
           type="button"
-          className="py-2 px-10 bg-indigo-600 hover: bg-indigo-700 text-white font-bold uppercase rounded-lg"
+          className="py-2 px-10 bg-indigo-600 hover:bg-indigo-700 text-white font-bold uppercase rounded-lg"
           onClick={() => setPaciente(paciente)}
         >
           Editar
@@ -44,7 +44,7 @@ export const Paciente = ({ paciente, setPaciente, eliminarPaciente }) => {
         <button
            id="eliminar"
            type="button"
-           className="py-2 px-10 bg-red-600 hover: bg-red-700 text-white font-bold uppercase rounded-lg"
+           className="py-2 px-10 bg-red-600 hover:bg-red-700 text-white font-bold uppercase rounded-lg"
           onClick={handleEliminar}
         >
           Eliminar
