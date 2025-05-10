@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import Error from "./Error";
 import React from "react";
-import Paciente from "./Paciente";
 
 export const Formulario = ({
   pacientes,
