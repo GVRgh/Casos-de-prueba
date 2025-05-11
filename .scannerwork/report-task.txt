@@ -1,0 +1,6 @@
+projectKey=casos_de_prueba
+serverUrl=http://localhost:9000
+serverVersion=25.5.0.107428
+dashboardUrl=http://localhost:9000/dashboard?id=casos_de_prueba
+ceTaskId=4f8b7969-662b-48cd-8167-7115ac09702d
+ceTaskUrl=http://localhost:9000/api/ce/task?id=4f8b7969-662b-48cd-8167-7115ac09702d

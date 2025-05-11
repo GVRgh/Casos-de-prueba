@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export const Formulario = ({
   pacientes,
@@ -13,230 +12,198 @@ export const Formulario = ({
   const [fecha, setFecha] = useState("");
   const [observaciones, setObservaciones] = useState("");
 
-  const [error, setError] = useState(false);
+    const [error, setError] = useState(false);
+    const [mensajeError, setMensajeError] = useState("");
 
-  useEffect(() => {
-    if (Object.keys(paciente).length > 0) {
-      setNombre(paciente.nombre);
-      setPropietario(paciente.propietario);
-      setEmail(paciente.email);
-      setFecha(paciente.fecha);
-      setObservaciones(paciente.observaciones);
-    }
-  }, [paciente]);
+    useEffect(() => {
+        if (Object.keys(paciente).length > 0) {
+            setNombre(paciente.nombre);
+            setPropietario(paciente.propietario);
+            setEmail(paciente.email);
+            setFecha(paciente.fecha);
+            setObservaciones(paciente.observaciones);
+        }
+    }, [paciente]);
 
-  const generarId = () => {
-    const random = Math.random().toString(36).substring(2);
-    const fecha = Date.now().toString(36);
-
-    return random + fecha;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Validación del formulario
-   /* if ([nombre, propietario, email, fecha, sintomas].includes("")) {
-      console.log("Hay al menos un campo vacío");
-      setError(true);
-      return;
-    }*/
-
-      if (nombre.trim() === "") {
-        alert("El campo nombre está vacío");
-        console.log("El campo nombre está vacío");
-        setError(true);
-        return;
-      }
-      
-      if (propietario.trim() === "") {
-        alert("El campo propietario está vacío");
-        console.log("El campo propietario está vacío");
-        setError(true);
-        return;
-      }
-      
-      if (email.trim() === "") {
-        alert("El campo email está vacío");
-        console.log("El campo email está vacío");
-        setError(true);
-        return;
-      }
-
-      // Expresión regular para validar formato de email
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-      if (!emailRegex.test(email)) {
-      alert("El email ingresado no es válido");
-      console.log("El email ingresado no es válido");
-      setError(true);
-      return;
-      }
-      
-      if (fecha.trim() === "") {
-        alert("El campo fecha está vacío");
-        console.log("El campo fecha está vacío");
-        setError(true);
-        return;
-      }
-
-      // Validar que la fecha no sea menor a hoy
-      const fechaIngresada = new Date(fecha);
-      const hoy = new Date();
-      hoy.setHours(0, 0, 0, 0); // Eliminar la hora para comparación exacta
-
-      if (fechaIngresada < hoy) {
-      alert("La fecha no puede ser menor a la fecha actual");
-      console.log("La fecha ingresada es menor que hoy");
-      setError(true);
-      return;
-      }
-      
-      if (observaciones.trim() === "") {
-        alert("El campo síntomas está vacío");
-        console.log("El campo síntomas está vacío");
-        setError(true);
-        return;
-      }
-
-    setError(false);
-    alert("Ingreso de Paciente Exitoso");
-    // Objeto de paciente
-    const objetoPaciente = {
-      nombre,
-      propietario,
-      email,
-      fecha,
-      observaciones,
+    const generarId = () => {
+        const random = Math.random().toString(36).substring(2);
+        const fecha = Date.now().toString(36);
+        return random + fecha;
     };
 
-    if (paciente.id) {
-      objetoPaciente.id = paciente.id;
-      const pacientesActualizados = pacientes.map((pacienteState) =>
-        pacienteState.id === paciente.id ? objetoPaciente : pacienteState
-      );
+    const validarFormulario = () => {
+        if (nombre.trim() === "") {
+            setMensajeError("El campo nombre esta vacio");
+            return false;
+        }
+        if (propietario.trim() === "") {
+            setMensajeError("El campo propietario esta vacio");
+            return false;
+        }
+        if (email.trim() === "") {
+            setMensajeError("El campo email esta vacio");
+            return false;
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setMensajeError("El email ingresado no es valido");
+            return false;
+        }
+        if (fecha.trim() === "") {
+            setMensajeError("El campo fecha esta vacio");
+            return false;
+        }
+        const fechaIngresada = new Date(fecha);
+        const hoy = new Date();
+        hoy.setHours(0, 0, 0, 0);
+        if (fechaIngresada < hoy) {
+            setMensajeError("La fecha no puede ser menor a la fecha actual");
+            return false;
+        }
+        if (observaciones.trim() === "") {
+            setMensajeError("El campo observaciones esta vacio");
+            return false;
+        }
+        return true;
+    };
 
-      setPacientes(pacientesActualizados);
-      setPaciente({});
-    } else {
-      objetoPaciente.id = generarId();
-      setPacientes([...pacientes, objetoPaciente]);
-    }
+    const resetFormulario = () => {
+        setNombre("");
+        setPropietario("");
+        setEmail("");
+        setFecha("");
+        setObservaciones("");
+        setPaciente({});
+    };
 
-    // Reiniciar el formulario
-    setNombre("");
-    setPropietario("");
-    setEmail("");
-    setFecha("");
-    setObservaciones("");
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-  return (
-    <div className="md:w-1/2 lg:w-2/5 mb-10 mx-5">
-      <h2 className="font-black text-3xl text-center">Asignar Cita</h2>
+        if (!validarFormulario()) {
+            setError(true);
+            return;
+        }
 
-      <p className="text-lg mt-5 text-center mb-10">
-        Añade Pacientes y{" "}
-        <span className="text-indigo-600 font-bold">Administralos</span>
-      </p>
+        setError(false);
+        setMensajeError("");
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-md rounded-lg py-10 px-5"
-      >
-       
-        <div className="mb-5">
-          <label
-            htmlFor="mascota"
-            className="block text-gray-700 uppercase font-bold"
-          >
-            Nombre Mascota
-          </label>
-          <input
-            id="mascota"
-            type="text"
-            placeholder="Nombre de la mascota"
-            className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-          />
+        const objetoPaciente = {
+            nombre,
+            propietario,
+            email,
+            fecha,
+            observaciones,
+        };
+
+        if (paciente.id) {
+            objetoPaciente.id = paciente.id;
+            const pacientesActualizados = pacientes.map((pacienteState) =>
+                pacienteState.id === paciente.id ? objetoPaciente : pacienteState
+            );
+            setPacientes(pacientesActualizados);
+        } else {
+            objetoPaciente.id = generarId();
+            setPacientes([...pacientes, objetoPaciente]);
+        }
+
+        resetFormulario();
+    };
+
+    return (
+        <div className="md:w-1/2 lg:w-2/5 mb-10 mx-5">
+            <h2 className="font-black text-3xl text-center">Asignar Cita</h2>
+            <p className="text-lg mt-5 text-center mb-10">
+                Añade Pacientes y{" "}
+                <span className="text-indigo-600 font-bold">Administralos</span>
+            </p>
+
+            <form
+                onSubmit={handleSubmit}
+                className="bg-white shadow-md rounded-lg py-10 px-5"
+            >
+                {error && mensajeError && (
+                    <p role="alert" className="text-red-500 font-bold mb-4">
+                        {mensajeError}
+                    </p>
+                )}
+
+                <div className="mb-5">
+                    <label htmlFor="mascota" className="block text-gray-700 uppercase font-bold">
+                        Nombre Mascota
+                    </label>
+                    <input
+                        id="mascota"
+                        type="text"
+                        placeholder="Nombre de la mascota"
+                        className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                        value={nombre}
+                        onChange={(e) => setNombre(e.target.value)}
+                    />
+                </div>
+
+                <div className="mb-5">
+                    <label htmlFor="propietario" className="block text-gray-700 uppercase font-bold">
+                        Nombre Propietario
+                    </label>
+                    <input
+                        id="propietario"
+                        type="text"
+                        placeholder="Nombre del propietario"
+                        className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                        value={propietario}
+                        onChange={(e) => setPropietario(e.target.value)}
+                    />
+                </div>
+
+                <div className="mb-5">
+                    <label htmlFor="email" className="block text-gray-700 uppercase font-bold">
+                        Email
+                    </label>
+                    <input
+                        id="email"
+                        type="text"
+                        placeholder="Email Contacto Propietario"
+                        className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
+
+                <div className="mb-5">
+                    <label htmlFor="cita" className="block text-gray-700 uppercase font-bold">
+                        Fecha de Cita
+                    </label>
+                    <input
+                        id="cita"
+                        type="date"
+                        className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                        value={fecha}
+                        onChange={(e) => setFecha(e.target.value)}
+                    />
+                </div>
+
+                <div className="mb-5">
+                    <label htmlFor="observaciones" className="block text-gray-700 uppercase font-bold">
+                        Observaciones
+                    </label>
+                    <textarea
+                        id="observaciones"
+                        className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                        placeholder="Describe las Observaciones"
+                        value={observaciones}
+                        onChange={(e) => setObservaciones(e.target.value)}
+                    />
+                </div>
+
+                <input
+                    id="agregar"
+                    type="submit"
+                    className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all"
+                    value={paciente.id ? "Editar paciente" : "Agregar paciente"}
+                />
+            </form>
         </div>
-
-        <div className="mb-5">
-          <label
-            htmlFor="mascota"
-            className="block text-gray-700 uppercase font-bold"
-          >
-            Nombre Propietario
-          </label>
-          <input
-            id="propietario"
-            type="text"
-            placeholder="Nombre del propietario"
-            className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-            value={propietario}
-            onChange={(e) => setPropietario(e.target.value)}
-          />
-        </div>
-
-        <div className="mb-5">
-          <label
-            htmlFor="mascota"
-            className="block text-gray-700 uppercase font-bold"
-          >
-            Email
-          </label>
-          <input
-            id="email"
-            type="text"
-            placeholder="Email Contacto Propietario"
-            className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-
-        <div className="mb-5">
-          <label
-            htmlFor="cita"
-            className="block text-gray-700 uppercase font-bold"
-          >
-            Fecha de Cita
-          </label>
-          <input
-            id="cita"
-            type="date"
-            className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-            value={fecha}
-            onChange={(e) => setFecha(e.target.value)}
-          />
-        </div>
-
-        <div className="mb-5">
-          <label
-            htmlFor="observaciones"
-            className="block text-gray-700 uppercase font-bold"
-          >
-            Observaciones
-          </label>
-          <textarea
-            id="observaciones"
-            className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-            placeholder="Describe las Observaciones"
-            value={observaciones}
-            onChange={(e) => setObservaciones(e.target.value)}
-          />
-        </div>
-
-          <input
-          id="agregar"
-          type="submit"
-          className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all"
-          value={paciente.id ? "Editar paciente" : "Agregar paciente"}
-        />
-      </form>
-    </div>
-  );
+    );
 };
 
 export default Formulario;

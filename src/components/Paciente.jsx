@@ -1,6 +1,8 @@
+import React from 'react';
 export const Paciente = ({ paciente, setPaciente, eliminarPaciente }) => {
   const { nombre, propietario, email, fecha, observaciones, id } = paciente;
-  const handleEliminar = () => {
+
+    const handleEliminar = () => {
     const respuesta = confirm("Deseas eliminar este paciente?");
     if (respuesta) {
       eliminarPaciente(id);
